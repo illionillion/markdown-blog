@@ -20,9 +20,10 @@ export default async function handler(
         data.push({id: doc.id, data: doc.data()})
     });
 
-    console.log(data);
-    
+    // console.log(data);
+    res.setHeader('Content-Type', 'application/json;charset=utf-8;')
     res.status(200).json(data);
+    // res.status(200).json({data: data});
     
   } catch (error) {
     res.status(500).json({ msg: error });

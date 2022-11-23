@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import SimpleMdeReact from "react-simplemde-editor";
 import Header from "../components/Header";
 
@@ -19,6 +19,7 @@ const Post: React.FC = () => {
   const [title, setTitle] = useState("");
   const [keywords, setKeywords] = useState("");
   const [content, setContent] = useState("");
+  const form = useRef<HTMLFormElement>(null)
 
   useEffect(()=>{
     console.log(title, keywords, content);
@@ -46,7 +47,8 @@ const Post: React.FC = () => {
     console.log(req.status);
     console.log(await req.json());
     if (req.status === 200) {
-        window.location.reload()
+        alert('投稿しました')
+        form.current?.reset()
     }
   }
 
@@ -57,7 +59,7 @@ const Post: React.FC = () => {
       </Head>
       <Header />
       <Container as="main" w="full" maxW="full" h="100vh">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} ref={form}>
           <Stack margin={5} gap={2}>
             <Input
               type="text"

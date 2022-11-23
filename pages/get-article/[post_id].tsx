@@ -26,7 +26,7 @@ const GetArticle: React.FC<PropsData> = ({ data, content }) => {
       </Head>
       <Header />
       <Container as="main" h="100vh">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} >{content}</ReactMarkdown>
       </Container>
     </Box>
   );
@@ -43,6 +43,9 @@ export const getServerSideProps = async ({
   const res = await axios.get(process.env.host + hogePath);
   // const objectData: PropsData = { data: res.data , content: marked(res.data.content)};
   const objectData: PropsData = { data: res.data, content: res.data.content };
+  console.log("取得");
+  console.log(res.data);
+  
 
   return {
     props: objectData,
