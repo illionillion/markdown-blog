@@ -1,9 +1,9 @@
 // 投稿作成
 import type { NextApiRequest, NextApiResponse } from "next";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../Firebase/firebase";
 
-// curl -X POST -H "Content-Type: application/json" -d '@requestpost.json' http://localhost:3000/api/post/create
+// curl -X POST -H "Content-Type: application/json" -d '@requestpostcreate.json' http://localhost:3000/api/post/create
 
 // 記事作成
 
@@ -23,12 +23,12 @@ export default async function handler(
       content: req.body.content,
       postdate: new Date(),
       updateDate: new Date(),
+      // postdate: serverTimestamp(),
+      // updateDate: serverTimestamp(),
       userId: req.body.userId,
     };
 
-    const docRef = await addDoc(collection(db, "posts"), data);
-
-    console.log("Document written with ID: ", docRef.id);
+    await addDoc(collection(db, "posts"), data);
 
     res.status(200).json({ msg: "success!!" });
   } catch (error) {

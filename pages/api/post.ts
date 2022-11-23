@@ -2,12 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { collection, addDoc, getDocs, DocumentData } from "firebase/firestore";
 import { db } from "../../Firebase/firebase";
-
-// データの一覧を取得したい
-
-type PostList = {
-    [id: string]: DocumentData
-}
+import { PostList } from "../../models/typePost";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,13 +10,14 @@ export default async function handler(
 ) {
   try {
 
-    const data: PostList = {}
+    const data: PostList = []
 
     // データの取得
     const querySnapshot = await getDocs(collection(db, "posts"));
     querySnapshot.forEach((doc) => {
         // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-        data[doc.id] = doc.data()
+        // data[doc.id] = doc.data()
+        data.push({id: doc.id, data: doc.data()})
     });
 
     res.status(200).json(data);
