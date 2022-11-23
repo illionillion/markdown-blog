@@ -20,6 +20,8 @@ export default async function handler(
         data.push({id: doc.id, data: doc.data()})
     });
 
+    console.log(data);
+    
     res.status(200).json(data);
     
   } catch (error) {

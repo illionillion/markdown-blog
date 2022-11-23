@@ -16,6 +16,9 @@ export default async function handler(
       return res.status(404).json({ msg: "not found" });
     }
 
+    console.log(req.body);
+    
+
     const data = {
       postId: 0,
       title: req.body.title,
@@ -25,7 +28,8 @@ export default async function handler(
       updateDate: new Date(),
       // postdate: serverTimestamp(),
       // updateDate: serverTimestamp(),
-      userId: req.body.userId,
+      // userId: req.body.userId,
+      userId: 0,
     };
 
     await addDoc(collection(db, "posts"), data);

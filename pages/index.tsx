@@ -1,7 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import {
   Box,
   Container,
@@ -19,6 +17,9 @@ type PropsData = {
 };
 
 const Home: React.FC<PropsData> = ({ data }) => {
+  console.log("data");
+  console.log(data);
+  
   return (
     <Box>
       <Head>
@@ -33,7 +34,7 @@ const Home: React.FC<PropsData> = ({ data }) => {
             <Stack key={index}>
               <Box bg="green.50" m={2}>
                 <Heading>
-                  <Link href={`getarticle/${val.id}`}>{val.data.title}</Link>
+                  <Link href={`get-article/${val.id}`}>{val.data.title}</Link>
                 </Heading>
                 <Text>
                   投稿日{" "}
@@ -49,18 +50,19 @@ const Home: React.FC<PropsData> = ({ data }) => {
   );
 };
 
-export default Home;
 
 export const getStaticProps: GetStaticProps<PropsData> = async () => {
   const hogePath = "/api/post";
   const res = await axios.get(process.env.host + hogePath);
   console.log(res.data);
-
+  
   const objectData: PropsData = {
     data: res.data,
   };
-
+  
   return {
     props: objectData,
   };
 };
+
+export default Home;

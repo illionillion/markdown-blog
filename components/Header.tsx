@@ -13,6 +13,7 @@ export default function Header() {
     p={0}
     bgColor="gray.500"
     position="sticky"
+    zIndex={1}
     top={0}
   >
     <HStack w="full" h="full">
