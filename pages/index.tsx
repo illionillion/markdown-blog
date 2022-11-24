@@ -2,7 +2,6 @@ import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Box, Container, Heading, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import axios from "axios";
 import { PostList } from "../models/typePost";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";

@@ -1,5 +1,4 @@
 import { Box, Container } from "@chakra-ui/react";
-import axios from "axios";
 import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import React from "react";
