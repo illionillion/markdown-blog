@@ -25,6 +25,12 @@ const Home: React.FC<PropsData> = ({ data }) => {
     // fetchData = await req.json()
     setPosts(await req.json());
     console.log("cilent");
+
+    // これは文字化けない
+    // const res2 = await axios.get('/api/post');
+    // console.log("server");
+    // console.log(((res2.data)));
+  
   };
 
   useEffect(() => {
@@ -65,8 +71,8 @@ const Home: React.FC<PropsData> = ({ data }) => {
 export const getStaticProps: GetStaticProps<PropsData> = async () => {
   const hogePath = "/api/post";
   axios.create({
-    responseType: "arraybuffer",
-    responseEncoding: "binary",
+    responseType: "json",
+    responseEncoding: "utf-8",
   });
   const res = await axios.get(process.env.host + hogePath);
   console.log("server");
