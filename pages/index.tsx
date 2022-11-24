@@ -6,6 +6,7 @@ import axios from "axios";
 import { PostList } from "../models/typePost";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
+import { getPosts } from "./api/post";
 
 type PropsData = {
   data: PostList;
@@ -13,30 +14,9 @@ type PropsData = {
 
 const Home: React.FC<PropsData> = ({ data }) => {
   // dataが文字化けしている
-  console.log("data");
-  console.log(data);
+  // console.log("data");
+  // console.log(data);
   // console.log(text);
-
-  const [posts, setPosts] = useState<PostList>([]);
-
-  const getdata = async () => {
-    const req = await fetch("/api/post");
-    // console.log(await req.json());
-    // fetchData = await req.json()
-    setPosts(await req.json());
-    console.log("cilent");
-
-    // これは文字化けない
-    // const res2 = await axios.get('/api/post');
-    // console.log("server");
-    // console.log(((res2.data)));
-  
-  };
-
-  useEffect(() => {
-    getdata();
-    console.log(posts);
-  }, []);
 
   return (
     <Box>
@@ -47,7 +27,7 @@ const Home: React.FC<PropsData> = ({ data }) => {
       </Head>
       <Header />
       <Container as="main" h="100vh">
-        {posts.map((val, index) => {
+        {data.map((val, index) => {
           return (
             <Stack key={index}>
               <Box bg="green.50" m={2}>
@@ -69,17 +49,12 @@ const Home: React.FC<PropsData> = ({ data }) => {
 };
 
 export const getStaticProps: GetStaticProps<PropsData> = async () => {
-  const hogePath = "/api/post";
-  axios.create({
-    responseType: "json",
-    responseEncoding: "utf-8",
-  });
-  const res = await axios.get(process.env.host + hogePath);
-  console.log("server");
-  console.log(JSON.parse(JSON.stringify(res.data)));
+  const data: PostList = JSON.parse(JSON.stringify(await getPosts()));
+  // console.log("server");
+  // console.log(data);
 
   const objectData: PropsData = {
-    data: res.data,
+    data: data,
   };
 
   return {

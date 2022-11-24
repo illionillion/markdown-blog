@@ -8,6 +8,7 @@ import { PostProps } from "../../models/typePost";
 // import {marked} from 'marked'
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { getOnePost } from "../api/post/[post_id]";
 
 type PropsData = {
   data: PostProps;
@@ -15,8 +16,8 @@ type PropsData = {
 };
 
 const GetArticle: React.FC<PropsData> = ({ data, content }) => {
-  console.log(data.title);
-  console.log(data.content);
+  // console.log(data.title);
+  // console.log(data.content);
 
   return (
     <Box>
@@ -39,12 +40,12 @@ export const getServerSideProps = async ({
   query,
 }: GetServerSidePropsContext) => {
   const post_id = query.post_id;
-  const hogePath = "/api/post/" + post_id;
-  const res = await axios.get(process.env.host + hogePath);
+  
+  const data :PostProps = JSON.parse(JSON.stringify(await getOnePost(post_id)))
   // const objectData: PropsData = { data: res.data , content: marked(res.data.content)};
-  const objectData: PropsData = { data: res.data, content: res.data.content };
-  console.log("取得");
-  console.log(res.data);
+  const objectData: PropsData = { data: data, content: data.content };
+  // console.log("取得");
+  // console.log(res.data);
   
 
   return {
