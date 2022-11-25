@@ -89,7 +89,6 @@ const Post: React.FC = () => {
               alignItems="center"
               justifyContent="center"
             >
-              {/* <Link href="/" colorScheme="red">キャンセル</Link> */}
               <Button type="button" colorScheme="red">
                 キャンセル
               </Button>

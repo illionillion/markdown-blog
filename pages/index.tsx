@@ -25,7 +25,7 @@ const Home: React.FC<PropsData> = ({ data }) => {
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Header />
-      <Container as="main" h="100vh">
+      <Container as="main">
         {data.map((val, index) => {
           return (
             <Stack key={index}>
