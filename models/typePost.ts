@@ -5,8 +5,8 @@ export type PostProps = {
   title: string;
   keywords: string;
   content: string;
-  // postdate: Date;
-  postdate: Timestamp;
+  postdate: Date;
+  // postdate: Timestamp;
   updateDate: Date;
   userId: number;
 };
