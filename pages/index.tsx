@@ -1,6 +1,6 @@
 import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { Box, Container, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Heading, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { PostList } from "../models/typePost";
 import Header from "../components/Header";
@@ -42,7 +42,7 @@ const Home: React.FC<PropsData> = ({ data }) => {
           );
         })}
       </Container>
-      <Container as="footer">my twitter</Container>
+      <Container as="footer"><Button colorScheme="twitter">my twitter</Button></Container>
     </Box>
   );
 };
