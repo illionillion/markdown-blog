@@ -11,12 +11,14 @@ import {
 } from "@chakra-ui/react";
 import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import Header from "../components/Header";
 import InputPassword from "../components/InputPassword";
 import { User } from "../models/typeUser";
 
 const Signup: React.FC = () => {
+  const router = useRouter()
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
@@ -44,6 +46,10 @@ const Signup: React.FC = () => {
     });
 
     console.log(await req.json());
+    if (req.status === 200) {
+      // ログイン画面へ遷移
+      router.push('/login')
+    }
   };
 
   return (
