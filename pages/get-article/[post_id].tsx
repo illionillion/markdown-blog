@@ -1,4 +1,4 @@
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Center, Container, Link } from "@chakra-ui/react";
 import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import React from "react";
@@ -27,6 +27,9 @@ const GetArticle: React.FC<PropsData> = ({ data, content }) => {
       <Header />
       <Container as="main" h="100vh">
         <ReactMarkdown remarkPlugins={[remarkGfm]} >{content}</ReactMarkdown>
+        <Center>
+          <Link href="/" color="teal">戻る</Link>
+        </Center>
       </Container>
     </Box>
   );
