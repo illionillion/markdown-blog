@@ -26,10 +26,13 @@ export default async function handler(
     }
 
     const auth = getAuth(app)
-    await createUserWithEmailAndPassword(auth, req.body.email, req.body.password) // ここでアカウント作成
+    const user = await createUserWithEmailAndPassword(auth, req.body.email, req.body.password) // ここでアカウント作成
 
-    const user = await addDoc(collection(db, "users"), data);
-    console.log(user.id);
+    console.log(user.user.uid); // uid
     
-    return res.status(200).json({msg: 'success', id: user.id})
+
+    // const user = await addDoc(collection(db, "users"), data);
+    // console.log(user.id);
+    
+    return res.status(200).json({msg: 'success', id: user.user.uid})
 }
