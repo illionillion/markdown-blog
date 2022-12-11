@@ -1,8 +1,10 @@
 import {
+  Alert,
   Box,
   Button,
   Container,
   FormControl,
+  FormErrorMessage,
   Heading,
   Input,
   InputGroup,
@@ -18,10 +20,11 @@ import InputPassword from "../components/InputPassword";
 import { User } from "../models/typeUser";
 
 const Signup: React.FC = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     console.log("user-name", userName);
@@ -32,6 +35,7 @@ const Signup: React.FC = () => {
   const onSubmit = async (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
     const data: User = {
+      id:'',
       name: userName,
       email: userEmail,
       password: userPassword,
@@ -45,10 +49,13 @@ const Signup: React.FC = () => {
       body: JSON.stringify(data),
     });
 
-    console.log(await req.json());
+    const msg = await req.json();
     if (req.status === 200) {
       // ログイン画面へ遷移
-      router.push('/login')
+      router.push("/login");
+    } else if (req.status === 500) {
+      console.log(msg.code);
+      setErrorMessage(msg.code);
     }
   };
 
@@ -89,15 +96,15 @@ const Signup: React.FC = () => {
               onChange={(e) => setUserEmail(e.target.value)}
               required
             />
-            <InputPassword 
+            <InputPassword
               placeholder="password"
-              onChange={e => setUserPassword(e.target.value)}
+              onChange={(e) => setUserPassword(e.target.value)}
               autoComplete="new-password"
             />
-            
             <Button type="submit" colorScheme="green" w="40">
               登録する
             </Button>
+            {errorMessage ? <Alert status="error">{errorMessage}</Alert> : ""}
           </Stack>
         </FormControl>
       </Container>
