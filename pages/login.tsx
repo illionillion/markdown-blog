@@ -25,6 +25,23 @@ const Login: React.FC = () => {
 
   const onSubmit = async (e: FormEvent<HTMLDivElement>) => {
     e.preventDefault();
+
+    const req = await fetch("api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: userEmail,
+        password: userPassword,
+      }),
+    });
+
+    const json = await req.json()
+    console.log(req.status);
+    console.log(json);
+    
+
   };
 
   return (
